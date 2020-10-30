@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import {listUsers} from "../routes";
+import { User } from "../models/User";
 
 
 export const privateKey = 'secret';
@@ -8,22 +8,27 @@ export const options = {
 };
 
 
-export function isAuthorized(req, res, done) {
+export async function  isAuthorized(req, res, done) {
     const token = req.headers['authorization'];
 
     console.log('TOKEN', token);
 
     const parsedToken = jwt.verify(token, privateKey);
 
-    const user = listUsers.find((u) => u.id === parsedToken.id)
+    // const user = listUsers.find((u) => u.id === parsedToken.id)
 
-    console.log(user)
+    const user = await User.findOne({
+        where: {
+            id: parsedToken.id
+        }
+    })
+
+    console.log(parsedToken.id)
 
     if (!user) {
         res.statusCode = 401;
-
         res.json({
-            error: 'Unauthorized'
+            status: 'Unauthorized'
         })
     } else {
         done();

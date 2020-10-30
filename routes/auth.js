@@ -20,14 +20,12 @@ router.post("/login", async (req, res) => {
 
     if (user) {
         const isPassValid = await bcrypt.compare(req.body.password, user.password);
-
         console.log("ISPASSVALID", isPassValid)
 
         if (isPassValid) {
             const token = jwt.sign({
                 id: user.id
             }, privateKey);
-
             console.log("TOKEN", token);
 
             return res.json({
@@ -38,12 +36,14 @@ router.post("/login", async (req, res) => {
             })
         } else {
             res.json ({
-                status: "Wrong password"
+                status: "Wrong password",
+                data: "Wrong password"
             })
         }
     } else {
         res.json ({
-            status: "Wrong user"
+            status: "Wrong user",
+            data: "Wrong user"
         })
     }
 });

@@ -3,17 +3,15 @@ import {isAuthorized} from "../services/auth";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
 
-
 const router = new Router();
 const userList = [];
 
 //I need to add isAuthorized here!!!
-router.get("/users",  async (req, res) => {
+router.get("/users", isAuthorized, async (req, res) => {
     await User.findAll().then((users) => {
       res.json(users);
       console.log(users);
     })
-
 });
 
 router.post("/users", async (req, res) => {
@@ -46,8 +44,8 @@ router.post("/users", async (req, res) => {
            console.log("HASEDPASSWORD", hashedPassword)
 
            res.json({
-               status: "created",
-               data: userList
+               status: "New user has been created",
+               data: newUser
            })
        }
    } catch (err) {

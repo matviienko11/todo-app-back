@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { Sequelize } from "sequelize";
-import { users, auth, listUsers } from "./routes"
+import { users, auth, todos } from "./routes"
 
 const app = express();
 const PORT = 3000;
@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(auth);
 app.use(users);
+app.use(todos);
 
 app.get("*", (req, res) => {
     res.send("Hello World!")
