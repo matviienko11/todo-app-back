@@ -9,5 +9,15 @@ export const Todo = sequelize.define('todo', {
     name: {
         type: Sequelize.STRING,
         required: true
+    },
+    isCompleted: {
+        type: Sequelize.BOOLEAN
+    },
+    isInProgress: {
+        type: Sequelize.BOOLEAN
+    },
+    description: {
+        type: Sequelize.STRING,
+        required: true
     }
 });

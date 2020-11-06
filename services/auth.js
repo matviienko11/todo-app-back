@@ -15,14 +15,11 @@ export async function  isAuthorized(req, res, done) {
 
     const parsedToken = jwt.verify(token, privateKey);
 
-    // const user = listUsers.find((u) => u.id === parsedToken.id)
-
     const user = await User.findOne({
         where: {
             id: parsedToken.id
         }
     })
-
     console.log(parsedToken.id)
 
     if (!user) {

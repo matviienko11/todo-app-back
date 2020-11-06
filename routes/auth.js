@@ -1,11 +1,8 @@
-import {Router} from "express";
+import { Router } from "express";
 import jwt from "jsonwebtoken";
-import {privateKey} from "../services/auth";
+import { privateKey } from "../services/auth";
+import { User } from "../models/User";
 import bcrypt from "bcrypt";
-import {User} from "../models/User";
-
-
-
 
 const router = new Router();
 
@@ -36,14 +33,14 @@ router.post("/login", async (req, res) => {
             })
         } else {
             res.json ({
-                status: "Wrong password",
-                data: "Wrong password"
+                status: "Wrong credentials, try again",
+                data: "Wrong credentials, try again"
             })
         }
     } else {
         res.json ({
-            status: "Wrong user",
-            data: "Wrong user"
+            status: "Wrong credentials, try again",
+            data: "Wrong credentials, try again"
         })
     }
 });

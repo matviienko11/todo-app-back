@@ -2,11 +2,11 @@ import {Router} from "express";
 import {isAuthorized} from "../services/auth";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
+import { v4 as uuidv4 } from 'uuid';
 
 const router = new Router();
 const userList = [];
 
-//I need to add isAuthorized here!!!
 router.get("/users", isAuthorized, async (req, res) => {
     await User.findAll().then((users) => {
       res.json(users);
@@ -16,6 +16,8 @@ router.get("/users", isAuthorized, async (req, res) => {
 
 router.post("/users", async (req, res) => {
    try {
+       console.log(req.body);
+
        const findUserByEmail = await User.findOne({
            where: {
                email: req.body.email
@@ -32,7 +34,7 @@ router.post("/users", async (req, res) => {
            const newUser = await User.sync().then(() => {
 
                return User.create({
-                   id: req.body.id,
+                   id: uuidv4(),
                    name: req.body.name,
                    email: req.body.email,
                    password: hashedPassword
@@ -53,6 +55,5 @@ router.post("/users", async (req, res) => {
        res.json(err);
    }
 });
-
 
 export default router;
