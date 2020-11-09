@@ -1,91 +1,83 @@
 import { Router } from "express";
-import { Todo } from "../models/Todo";
-import { v4 as uuidv4 } from 'uuid';
+import { todosService } from "../services/todos.service";
 
 const router = new Router;
-const todoList = [];
 
 router.get("/todos", async (req, res) => {
-    await Todo.findAll().then((todos) => {
-        res.json(todos);
-    })
+    try {
+        const todos =  await todosService.getAllTodos();
+        res.json({
+            status: "The list of all todos",
+            data: todos
+        })
+    } catch (error) {
+        // const errorData = errorService.notFondError(error)
+
+        res.json({
+            status: "Some error happened",
+            data: error
+        })
+    }
 })
 
 router.get("/todos/:id", async (req, res) => {
-    const foundTodo = await Todo.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-    console.log("FOUNDTODO", foundTodo)
-    res.json({
-        status: "the todo has been found",
-        data: foundTodo
-    })
+    try {
+        const oneTodo = await todosService.getOneTodo(req);
+        res.json({
+            status: "You todo has been found",
+            data: oneTodo
+        })
+    } catch (error) {
+        res.json({
+            status: "Couldn't find requested todo",
+            data: error
+        })
+    }
 })
 
 router.post("/todos", async (req, res) => {
-    const newTodo = await Todo.sync().then(() => {
-        return Todo.create({
-            id: uuidv4(),
-            name: req.body.name,
-            description: req.body.description
+    try {
+        const postTodo = await todosService.createTodo(req);
+        res.json({
+            status: "Todo has been created",
+            data: postTodo
         })
-    })
-    todoList.push(newTodo);
-    console.log(newTodo);
-    res.json({
-        status: "created",
-        data: newTodo
-    })
+    } catch (error) {
+        res.json({
+            status: "Todo hasn't been created",
+            data: error
+        })
+    }
 })
 
 router.delete("/todos/:id", async (req, res) => {
-    const findTodo = await Todo.findOne({
-        where: {
-            id: req.params.id
-        }
-    });
-    // console.log("FINDTODO", findTodo);
-    await findTodo.destroy();
-    res.json({
-        status: "deleted"
-    })
+    try {
+        const deletedTodo = await todosService.deleteTodo(req);
+        res.json({
+            status: "Todo has been deleted",
+            data: deletedTodo
+        })
+    } catch (error) {
+        res.json({
+            status: "Todo hasn't been deleted",
+            data: error
+        })
+    }
 });
 
 router.patch("/todos/:id", async (req, res) => {
-    const findTodo = await Todo.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-    console.log("FINDTODO", findTodo);
-
-    const updatedTodo = await findTodo.update({
-        ...req.body
-    })
-    console.log('REQBODY', req.body)
-    res.json({
-        status: "changed",
-        data: updatedTodo
-    })
+    try {
+        const editedTodo = await todosService.editTodo(req);
+        res.json({
+            status: "Todo has been changed",
+            data: editedTodo
+        })
+    } catch (error) {
+        res.json({
+            status: "No changes happened",
+            data: error
+        })
+    }
 })
-
-router.put("/todos/:id", async (req, res) => {
-    const findTodo = await Todo.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-    const updatedTodo = await findTodo.update({
-        ...req.body
-    })
-    console.log('REQBODY', req.body)
-    res.json({
-        status: "changed",
-        data: updatedTodo
-    })
-})
-
 
 export default router;

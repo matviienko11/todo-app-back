@@ -1,21 +1,27 @@
-import { Sequelize } from "sequelize";
+import {Model, Sequelize, DataTypes} from "sequelize";
+
 const sequelize = new Sequelize('postgres://cruzinshtern:user@127.0.0.1:5432/todosdb');
 
-export const User = sequelize.define('user', {
+
+class User extends Model { }
+User.init({
     id: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         required: true
     },
     email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         required: true
     },
     password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         required: true
-    }
-});
+    },
+}, {sequelize, modelName: 'user'})
+
+
+export {User};

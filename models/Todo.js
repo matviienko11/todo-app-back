@@ -1,13 +1,14 @@
-import { Sequelize } from "sequelize";
+import {Sequelize, Model, DataTypes} from "sequelize";
 const sequelize = new Sequelize('postgres://cruzinshtern:user@127.0.0.1:5432/todosdb');
 
-export const Todo = sequelize.define('todo', {
+class Todo extends Model { }
+Todo.init({
     id: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         required: true
     },
     isCompleted: {
@@ -19,5 +20,7 @@ export const Todo = sequelize.define('todo', {
     description: {
         type: Sequelize.STRING,
         required: true
-    }
-});
+    },
+}, {sequelize, modelName: 'todo'})
+
+export {Todo}
