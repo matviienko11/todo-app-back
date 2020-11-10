@@ -1,5 +1,4 @@
 import { Todo } from "../models/Todo";
-import { v4 as uuidv4 } from 'uuid';
 
 
 class TodosService {
@@ -18,7 +17,6 @@ class TodosService {
 
     async createTodo(req) {
         return await Todo.create({
-            id: uuidv4(),
             name: req.body.name,
             description: req.body.description
         })

@@ -1,26 +1,43 @@
-import {Sequelize, Model, DataTypes} from "sequelize";
-const sequelize = new Sequelize('postgres://cruzinshtern:user@127.0.0.1:5432/todosdb');
+import { Model, DataTypes } from "sequelize";
+import { v4 as uuidv4 } from 'uuid';
 
-class Todo extends Model { }
-Todo.init({
-    id: {
-        type: DataTypes.STRING,
+const hooks = {
+    async beforeCreate(todo) {
+        todo.id = uuidv4();
+    }
+}
+
+export class Todo extends Model {
+    static id = {
+        type: DataTypes.UUIDV4,
         primaryKey: true
-    },
-    name: {
+    }
+    static name = {
         type: DataTypes.STRING,
         required: true
-    },
-    isCompleted: {
-        type: Sequelize.BOOLEAN
-    },
-    isInProgress: {
-        type: Sequelize.BOOLEAN
-    },
-    description: {
-        type: Sequelize.STRING,
+    }
+    static isCompleted = {
+        type: DataTypes.STRING
+    }
+    static isInProgress = {
+        type: DataTypes.STRING
+    }
+    static description = {
+        type: DataTypes.STRING,
         required: true
-    },
-}, {sequelize, modelName: 'todo'})
+    }
 
-export {Todo}
+    static init(sequelize) {
+        super.init({
+            id: this.id,
+            name: this.name,
+            isCompleted: this.isCompleted,
+            isInProgress: this.isInProgress,
+            description: this.description
+        }, {
+            sequelize,
+            hooks,
+            modelName: 'todo'
+        })
+    }
+}

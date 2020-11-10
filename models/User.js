@@ -1,27 +1,42 @@
-import {Model, Sequelize, DataTypes} from "sequelize";
+import { Model, DataTypes } from "sequelize";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from 'uuid';
 
-const sequelize = new Sequelize('postgres://cruzinshtern:user@127.0.0.1:5432/todosdb');
+const hooks = {
+    async beforeCreate(user) {
+        user.id = uuidv4()
+        user.password = await bcrypt.hash(user.password, 10);
+    }
+}
 
-
-class User extends Model { }
-User.init({
-    id: {
-        type: DataTypes.STRING,
+export  class User extends Model {
+    static id = {
+        type: DataTypes.UUIDV4,
         primaryKey: true
-    },
-    name: {
+    };
+    static name = {
         type: DataTypes.STRING,
         required: true
-    },
-    email: {
+    };
+    static email = {
         type: DataTypes.STRING,
         required: true
-    },
-    password: {
+    };
+    static password = {
         type: DataTypes.STRING,
-        required: true
-    },
-}, {sequelize, modelName: 'user'})
+        required: true,
+    };
 
-
-export {User};
+    static init(sequelize) {
+        super.init({
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            password: this.password
+        }, {
+            sequelize,
+            hooks,
+            modelName: 'user'
+        })
+    }
+}

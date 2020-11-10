@@ -1,5 +1,4 @@
 import { User } from "../models/User";
-import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcrypt";
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
@@ -36,12 +35,10 @@ export class UsersService {
     }
 
     async createUser(req) {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
         return await User.create({
-            id: uuidv4(),
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword
+            password: req.body.password
         })
     }
 }

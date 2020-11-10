@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 
 
-export const privateKey = 'secret';
+export const privateKey = process.env.PRIVATE_KEY;
 export const options = {
     algorithm: 'RS256'
 };
