@@ -17,10 +17,10 @@ export class Todo extends Model {
         required: true
     }
     static isCompleted = {
-        type: DataTypes.STRING
+        type: DataTypes.BOOLEAN
     }
     static isInProgress = {
-        type: DataTypes.STRING
+        type: DataTypes.BOOLEAN
     }
     static description = {
         type: DataTypes.STRING,

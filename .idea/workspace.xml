@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d50ef8f6-2db1-43bb-b0b9-12e4ad54390a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/add_role_column_to_users.migrations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/models/Todo.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Todo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/plugin-proposal-class-properties/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/plugin-proposal-class-properties/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/sequelize.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/sequelize.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/todos.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/todos.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/users.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/users.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +99,8 @@
       <workItem from="1604561846908" duration="2635000" />
       <workItem from="1604648634662" duration="21390000" />
       <workItem from="1604909029814" duration="21255000" />
-      <workItem from="1604993690993" duration="10386000" />
+      <workItem from="1604993690993" duration="23775000" />
+      <workItem from="1605080025147" duration="1812000" />
     </task>
     <servers />
   </component>
@@ -121,22 +116,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1604648669957" />
-    <state width="1825" height="215" key="GridCell.Tab.0.bottom" timestamp="1605002593254">
+    <state width="992" height="210" key="GridCell.Tab.0.bottom" timestamp="1605080265518">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="215" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1605002593254" />
-    <state width="1825" height="215" key="GridCell.Tab.0.center" timestamp="1605002593254">
+    <state width="992" height="210" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1605080265518" />
+    <state width="992" height="210" key="GridCell.Tab.0.center" timestamp="1605080265518">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="215" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1605002593254" />
-    <state width="1825" height="215" key="GridCell.Tab.0.left" timestamp="1605002593253">
+    <state width="992" height="210" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1605080265518" />
+    <state width="992" height="210" key="GridCell.Tab.0.left" timestamp="1605080265518">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="215" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1605002593253" />
-    <state width="1825" height="215" key="GridCell.Tab.0.right" timestamp="1605002593254">
+    <state width="992" height="210" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1605080265518" />
+    <state width="992" height="210" key="GridCell.Tab.0.right" timestamp="1605080265518">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1825" height="215" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1605002593254" />
+    <state width="992" height="210" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1605080265518" />
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1604658083022">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
