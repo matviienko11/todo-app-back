@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 
 
-export const privateKey = process.env.PRIVATE_KEY;
+export const privateKey = process.env.PRIVATE_KEY || 'secret';
 export const options = {
     algorithm: 'RS256'
 };
@@ -16,6 +16,8 @@ export async function  isAuthorized(req, res, done) {
             id: parsedToken.id
         }
     })
+    // console.log('USER', user)
+
     if (!user) {
         res.statusCode = 401;
         res.json({
@@ -25,5 +27,4 @@ export async function  isAuthorized(req, res, done) {
         done();
     }
 }
-
 

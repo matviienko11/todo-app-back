@@ -38,7 +38,8 @@ export class UsersService {
         return await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            role: req.body.role
         })
     }
 }

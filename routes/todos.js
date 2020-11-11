@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { todosService } from "../services/todos.service";
+import {isAuthorized} from "../middleware/auth";
 
 const router = new Router;
 
@@ -35,7 +36,7 @@ router.get("/todos/:id", async (req, res) => {
     }
 })
 
-router.post("/todos", async (req, res) => {
+router.post("/todos",async (req, res) => {
     try {
         const postTodo = await todosService.createTodo(req);
         res.json({

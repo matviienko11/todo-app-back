@@ -1,4 +1,9 @@
 import { Todo } from "../models/Todo";
+import {isAuthorized, privateKey} from "../middleware/auth";
+import {users} from "../routes";
+import jwt from "jsonwebtoken";
+import {User} from "../models/User";
+
 
 
 class TodosService {
@@ -15,10 +20,18 @@ class TodosService {
         })
     }
 
-    async createTodo(req) {
+    async createTodo (req) {
+        const token = req.headers['authorization'];
+        const parsedToken = jwt.verify(token, privateKey);
+        const user = await User.findOne({
+            where: {
+                id: parsedToken.id
+            }
+        })
         return await Todo.create({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            userId: user.id
         })
     }
 

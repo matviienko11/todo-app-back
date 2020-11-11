@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { v4 as uuidv4 } from 'uuid';
+import { User } from "./User";
 
 const hooks = {
     async beforeCreate(todo) {
@@ -9,7 +10,7 @@ const hooks = {
 
 export class Todo extends Model {
     static id = {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         primaryKey: true
     }
     static name = {
@@ -26,6 +27,9 @@ export class Todo extends Model {
         type: DataTypes.STRING,
         required: true
     }
+    static userId = {
+        type: DataTypes.UUID
+    }
 
     static init(sequelize) {
         super.init({
@@ -33,11 +37,19 @@ export class Todo extends Model {
             name: this.name,
             isCompleted: this.isCompleted,
             isInProgress: this.isInProgress,
-            description: this.description
+            description: this.description,
+            userId: this.userId
         }, {
             sequelize,
             hooks,
-            modelName: 'todo'
+            modelName: 'todos'
         })
     }
+}
+
+Todo.associate = function () {
+    Todo.belongsTo(User, {
+        foreignKey: 'userId',
+        as: 'users'
+    })
 }
