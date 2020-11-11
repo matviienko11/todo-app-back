@@ -6,7 +6,7 @@ const router = new Router;
 
 router.get("/todos", async (req, res) => {
     try {
-        const todos =  await todosService.getAllTodos();
+        const todos =  await todosService.getCertainTodos(req);
         res.json({
             status: "The list of all todos",
             data: todos

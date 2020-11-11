@@ -20,6 +20,21 @@ class TodosService {
         })
     }
 
+    async getCertainTodos(req) {
+        const token = req.headers['authorization'];
+        const parsedToken = jwt.verify(token, privateKey);
+        const user = await User.findOne({
+            where: {
+                id: parsedToken.id
+            }
+        })
+        return await Todo.findAll({
+            where: {
+                userId: user.id
+            }
+        })
+    }
+
     async createTodo (req) {
         const token = req.headers['authorization'];
         const parsedToken = jwt.verify(token, privateKey);
