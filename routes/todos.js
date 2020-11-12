@@ -1,19 +1,21 @@
 import { Router } from "express";
 import { todosService } from "../services/todos.service";
+import {usersService} from "../services/users.service";
 import {isAuthorized} from "../middleware/auth";
+import {generateDto} from "../utils/generate-dto";
 
 const router = new Router;
 
-router.get("/todos", async (req, res) => {
+router.get("/todos", isAuthorized, async (req, res) => {
     try {
-        const todos =  await todosService.getCertainTodos(req);
-        res.json({
-            status: "The list of all todos",
-            data: todos
-        })
+        const allTodos = await todosService.getAllTodos();
+        if(req.user.role !== "User") {
+            res.json(generateDto(allTodos))
+        } else {
+            const certainTodos =  await todosService.getCertainTodos(req);
+            res.json(generateDto(certainTodos))
+        }
     } catch (error) {
-        // const errorData = errorService.notFondError(error)
-
         res.json({
             status: "Some error happened",
             data: error
@@ -66,13 +68,19 @@ router.delete("/todos/:id", async (req, res) => {
     }
 });
 
-router.patch("/todos/:id", async (req, res) => {
+router.patch("/todos/:id", isAuthorized, async (req, res) => {
     try {
-        const editedTodo = await todosService.editTodo(req);
-        res.json({
-            status: "Todo has been changed",
-            data: editedTodo
-        })
+        if(req.user.role === "User") {
+            const editedTodo = await todosService.editTodo(req);
+            res.json({
+                status: "Todo has been changed",
+                data: editedTodo
+            })
+        } else {
+            res.json ({
+                status: "Sorry, only the user who created it can change it"
+            })
+        }
     } catch (error) {
         res.json({
             status: "No changes happened",

@@ -48,5 +48,5 @@ export  class User extends Model {
 }
 
 User.associate = () => {
-    User.hasMany(Todo)
+    User.hasMany(Todo, { foreignKey: 'userId' })
 }

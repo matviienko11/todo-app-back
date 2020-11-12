@@ -8,7 +8,7 @@ export const options = {
 };
 
 
-export async function  isAuthorized(req, res, done) {
+export async function  isAuthorized(req, res, next) {
     const token = req.headers['authorization'];
     const parsedToken = jwt.verify(token, privateKey);
     const user = await User.findOne({
@@ -16,15 +16,14 @@ export async function  isAuthorized(req, res, done) {
             id: parsedToken.id
         }
     })
-    // console.log('USER', user)
-
     if (!user) {
         res.statusCode = 401;
         res.json({
             status: 'Unauthorized'
         })
     } else {
-        done();
+        req.user = user;
+        next();
     }
 }
 

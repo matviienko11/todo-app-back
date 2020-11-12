@@ -2,11 +2,18 @@ import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
+import {Todo} from "../models/Todo";
 
 
 export class UsersService {
 
     async getAllUsers() {
+        // return await User.findAll({
+        //     include: [{
+        //         model: Todo,
+        //         as: 'todo',
+        //     }]
+        // })
         return await User.findAll()
     }
 
@@ -29,7 +36,7 @@ export class UsersService {
             if(isPassValid) {
                 return jwt.sign({
                     id: user.id
-                }, privateKey)
+                   }, privateKey)
             }
         }
     }

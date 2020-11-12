@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d50ef8f6-2db1-43bb-b0b9-12e4ad54390a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/utils/generate-dto.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/todos.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/todos.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/users.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/users.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +44,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="10.17.44" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../angular-todo-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -96,7 +102,8 @@
       <workItem from="1604648634662" duration="21390000" />
       <workItem from="1604909029814" duration="21255000" />
       <workItem from="1604993690993" duration="23775000" />
-      <workItem from="1605080025147" duration="25918000" />
+      <workItem from="1605080025147" duration="27026000" />
+      <workItem from="1605167187388" duration="12247000" />
     </task>
     <servers />
   </component>
@@ -112,30 +119,30 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1605095405266" />
-    <state width="1378" height="211" key="GridCell.Tab.0.bottom" timestamp="1605108907007">
+    <state width="1378" height="211" key="GridCell.Tab.0.bottom" timestamp="1605110607158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1378" height="211" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1605108907007" />
-    <state width="1378" height="211" key="GridCell.Tab.0.center" timestamp="1605108907007">
+    <state width="1378" height="211" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1605110607158" />
+    <state width="1378" height="211" key="GridCell.Tab.0.center" timestamp="1605110607157">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1378" height="211" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1605108907007" />
-    <state width="1378" height="211" key="GridCell.Tab.0.left" timestamp="1605108907007">
+    <state width="1378" height="211" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1605110607157" />
+    <state width="1378" height="211" key="GridCell.Tab.0.left" timestamp="1605110607156">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1378" height="211" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1605108907007" />
-    <state width="1378" height="211" key="GridCell.Tab.0.right" timestamp="1605108907007">
+    <state width="1378" height="211" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1605110607156" />
+    <state width="1378" height="211" key="GridCell.Tab.0.right" timestamp="1605110607158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1378" height="211" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1605108907007" />
+    <state width="1378" height="211" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1605110607158" />
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1604658083022">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1604658083022" />
-    <state x="330" y="250" key="run.anything.popup" timestamp="1605106128199">
+    <state x="330" y="250" key="run.anything.popup" timestamp="1605168656424">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="330" y="250" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1605106128199" />
+    <state x="330" y="250" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1605168656424" />
     <state x="291" y="258" width="672" height="678" key="search.everywhere.popup" timestamp="1603801003797">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

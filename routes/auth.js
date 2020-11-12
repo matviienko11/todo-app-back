@@ -1,14 +1,18 @@
 import { Router } from "express";
 import { usersService } from "../services/users.service";
+import jwt from "jsonwebtoken";
+import {privateKey} from "../middleware/auth";
+import {User} from "../models/User";
 
 const router = new Router();
 
 router.post("/login", async (req, res) => {
     try {
-        if(await usersService.authUser(req)) {
+        const authedUser = await usersService.authUser(req);
+        if(authedUser) {
             res.json({
                 status: "Authorized",
-                data: await usersService.authUser(req)
+                data: authedUser
             })
         } else {
             res.json({

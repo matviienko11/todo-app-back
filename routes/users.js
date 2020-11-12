@@ -5,12 +5,19 @@ import { isAuthorized } from "../middleware/auth";
 const router = new Router();
 
 //Add isAuthorized here
-router.get("/users", async (req, res) => {
+router.get("/users", isAuthorized, async (req, res) => {
     try {
-        res.json({
-            status: "The full list of registered users",
-            data: await usersService.getAllUsers()
-        })
+        const getAllUsers = await usersService.getAllUsers()
+        if(req.user.role === "Admin") {
+            res.json({
+                status: "The full list of registered users",
+                data: getAllUsers
+            })
+        } else {
+            res.json({
+                status: "No rights"
+            })
+        }
     } catch (error) {
         res.json({
             status: "No list",

@@ -3,12 +3,14 @@ import {isAuthorized, privateKey} from "../middleware/auth";
 import {users} from "../routes";
 import jwt from "jsonwebtoken";
 import {User} from "../models/User";
-
-
+import {usersService} from "./users.service";
 
 class TodosService {
 
     async getAllTodos() {
+        // return await Todo.findAll({
+        //     include: { model: User }
+        // })
         return await Todo.findAll()
     }
 
@@ -21,16 +23,9 @@ class TodosService {
     }
 
     async getCertainTodos(req) {
-        const token = req.headers['authorization'];
-        const parsedToken = jwt.verify(token, privateKey);
-        const user = await User.findOne({
-            where: {
-                id: parsedToken.id
-            }
-        })
         return await Todo.findAll({
             where: {
-                userId: user.id
+                userId: req.user.id
             }
         })
     }
