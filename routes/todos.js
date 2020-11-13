@@ -9,12 +9,16 @@ const router = new Router;
 router.get("/todos", isAuthorized, async (req, res) => {
     try {
         const allTodos = await todosService.getAllTodos();
-        if(req.user.role !== "User") {
-            res.json(generateDto(allTodos))
-        } else {
-            const certainTodos =  await todosService.getCertainTodos(req);
-            res.json(generateDto(certainTodos))
-        }
+        console.log('ALLTODOS', allTodos)
+
+
+        res.json(generateDto(allTodos))
+        // if(req.user.role !== "User") {
+        //     res.json(generateDto(allTodos))
+        // } else {
+        //     const certainTodos =  await todosService.getCertainTodos(req);
+        //     res.json(generateDto(certainTodos))
+        // }
     } catch (error) {
         res.json({
             status: "Some error happened",

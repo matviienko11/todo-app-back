@@ -1,32 +1,32 @@
-import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
-import {Todo} from "../models/Todo";
+import {sequelizeService} from "../models";
 
 
 export class UsersService {
 
     async getAllUsers() {
-        // return await User.findAll({
-        //     include: [{
-        //         model: Todo,
-        //         as: 'todo',
-        //     }]
-        // })
-        return await User.findAll()
+        return await sequelizeService.db.users.findAll({
+              include: [{model: sequelizeService.db.todos, as: 'todos'}]
+        }).toJSON();
     }
 
     async getUserByEmail(req) {
-        return await User.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
+        try {
+            return await sequelizeService.db.users.findOne({
+                where: {
+                    email: req.body.email
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     async authUser(req) {
-        const user = await User.findOne({
+        const user = await sequelizeService.db.users.findOne({
             where: {
                 name: req.body.name
             }
@@ -42,12 +42,17 @@ export class UsersService {
     }
 
     async createUser(req) {
-        return await User.create({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            role: req.body.role
-        })
+        try {
+            return await sequelizeService.db.users.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                role: req.body.role
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 }
 

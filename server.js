@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { users, auth, todos } from "./routes";
-import { sequelizeService } from "./services/sequelize.service";
+import { sequelizeService } from "./models";
 import dotenv from "dotenv";
 import morgan from "morgan";
 

@@ -1,21 +1,20 @@
-import { Todo } from "../models/Todo";
-import {isAuthorized, privateKey} from "../middleware/auth";
-import {users} from "../routes";
+import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
-import {User} from "../models/User";
-import {usersService} from "./users.service";
+import {sequelizeService} from "../models";
 
 class TodosService {
 
     async getAllTodos() {
-        // return await Todo.findAll({
-        //     include: { model: User }
-        // })
-        return await Todo.findAll()
+        return await sequelizeService.db.todos.findAll({
+             include: [{model: sequelizeService.db.users, as: 'users'}]
+        });
     }
+    // async getAllTodos() {
+    //     return await Todo.findAll();
+    // }
 
     async getOneTodo(req) {
-        return await Todo.findOne({
+        return await sequelizeService.db.todos.findOne({
             where: {
                 id: req.params.id
             }
@@ -23,7 +22,7 @@ class TodosService {
     }
 
     async getCertainTodos(req) {
-        return await Todo.findAll({
+        return await sequelizeService.db.todos.findAll({
             where: {
                 userId: req.user.id
             }
@@ -31,22 +30,27 @@ class TodosService {
     }
 
     async createTodo (req) {
-        const token = req.headers['authorization'];
-        const parsedToken = jwt.verify(token, privateKey);
-        const user = await User.findOne({
-            where: {
-                id: parsedToken.id
-            }
-        })
-        return await Todo.create({
-            name: req.body.name,
-            description: req.body.description,
-            userId: user.id
-        })
+        try {
+            const token = req.headers['authorization'];
+            const parsedToken = jwt.verify(token, privateKey);
+            const user = await sequelizeService.db.users.findOne({
+                where: {
+                    id: parsedToken.id
+                }
+            })
+            return await sequelizeService.db.todos.create({
+                name: req.body.name,
+                description: req.body.description,
+                userId: user.id
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     async deleteTodo(req) {
-        return await Todo.destroy({
+        return await sequelizeService.db.todos.destroy({
             where: {
                 id: req.params.id
             }
@@ -54,7 +58,7 @@ class TodosService {
     }
 
     async editTodo(req) {
-        return (await Todo.findOne({
+        return (await sequelizeService.db.todos.findOne({
             where: {
                 id: req.params.id
             }
