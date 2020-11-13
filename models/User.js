@@ -41,12 +41,7 @@ class User extends Model {
 }
 
 User.associate = (models) => {
-    User.hasMany(models.todos,
-        {
-            foreignKey: 'userId',
-            as: 'todos'
-        })
-
+    User.hasMany(models.todos)
     return User;
 }
 

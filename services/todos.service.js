@@ -1,32 +1,29 @@
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
-import {sequelizeService} from "../models";
+import { sequelizeService } from "../models";
 
 class TodosService {
 
     async getAllTodos() {
-        return await sequelizeService.db.todos.findAll({
-             include: [{model: sequelizeService.db.users, as: 'users'}]
-        });
-    }
-    // async getAllTodos() {
-    //     return await Todo.findAll();
-    // }
-
-    async getOneTodo(req) {
-        return await sequelizeService.db.todos.findOne({
-            where: {
-                id: req.params.id
-            }
-        })
+        try {
+            return await sequelizeService.db.todos.findAll({
+                include: [{model: sequelizeService.db.users, as: 'users'}]
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getCertainTodos(req) {
-        return await sequelizeService.db.todos.findAll({
-            where: {
-                userId: req.user.id
-            }
-        })
+        try {
+            return await sequelizeService.db.todos.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async createTodo (req) {
@@ -46,25 +43,32 @@ class TodosService {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     async deleteTodo(req) {
-        return await sequelizeService.db.todos.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
+        try {
+            return await sequelizeService.db.todos.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async editTodo(req) {
-        return (await sequelizeService.db.todos.findOne({
-            where: {
-                id: req.params.id
-            }
-        })).update({
-            ...req.body
-        })
+        try {
+            return (await sequelizeService.db.todos.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })).update({
+                ...req.body
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 export const todosService  = new TodosService();

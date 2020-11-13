@@ -1,42 +1,23 @@
 import { Router } from "express";
 import { todosService } from "../services/todos.service";
 import {usersService} from "../services/users.service";
-import {isAuthorized} from "../middleware/auth";
-import {generateDto} from "../utils/generate-dto";
+import { isAuthorized } from "../middleware/auth";
+import { generateDto } from "../utils/generate-dto";
 
 const router = new Router;
 
 router.get("/todos", isAuthorized, async (req, res) => {
     try {
         const allTodos = await todosService.getAllTodos();
-        console.log('ALLTODOS', allTodos)
-
-
-        res.json(generateDto(allTodos))
-        // if(req.user.role !== "User") {
-        //     res.json(generateDto(allTodos))
-        // } else {
-        //     const certainTodos =  await todosService.getCertainTodos(req);
-        //     res.json(generateDto(certainTodos))
-        // }
+        if(req.user.role !== "User") {
+            res.json(generateDto(allTodos))
+        } else {
+            const certainTodos =  await todosService.getCertainTodos(req);
+            res.json(generateDto(certainTodos))
+        }
     } catch (error) {
         res.json({
             status: "Some error happened",
-            data: error
-        })
-    }
-})
-
-router.get("/todos/:id", async (req, res) => {
-    try {
-        const oneTodo = await todosService.getOneTodo(req);
-        res.json({
-            status: "You todo has been found",
-            data: oneTodo
-        })
-    } catch (error) {
-        res.json({
-            status: "Couldn't find requested todo",
             data: error
         })
     }

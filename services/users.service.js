@@ -1,15 +1,22 @@
 import bcrypt from "bcrypt";
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
-import {sequelizeService} from "../models";
+import { sequelizeService } from "../models";
+
 
 
 export class UsersService {
 
     async getAllUsers() {
-        return await sequelizeService.db.users.findAll({
-              include: [{model: sequelizeService.db.todos, as: 'todos'}]
-        }).toJSON();
+         try {
+            return await sequelizeService.db.users.findAll({
+                include: [{model: sequelizeService.db.todos, as: 'todos'}]
+            });
+        } catch (e) {
+            console.log(e)
+        }
+
+
     }
 
     async getUserByEmail(req) {

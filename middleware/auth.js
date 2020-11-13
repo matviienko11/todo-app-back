@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/User";
-import {sequelizeService, ssequelizeService} from "../models";
+import { sequelizeService } from "../models";
 
 
 export const privateKey = process.env.PRIVATE_KEY || 'secret';

@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { v4 as uuidv4 } from 'uuid';
-import {User} from "./User";
+// import { User } from "./User";
 
 const hooks = {
     async beforeCreate(todo) {
@@ -20,17 +20,16 @@ class Todo extends Model {
                 required: true
             },
             isCompleted: {
-                type: DataTypes.BOOLEAN
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
             },
             isInProgress: {
-                type: DataTypes.BOOLEAN
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
             },
             description: {
                 type: DataTypes.STRING,
                 required: true
-            },
-            userId: {
-                type: DataTypes.UUID
             }
         }, {
             sequelize,

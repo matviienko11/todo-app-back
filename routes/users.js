@@ -1,6 +1,7 @@
 import {Router} from "express";
 import { usersService } from "../services/users.service";
 import { isAuthorized } from "../middleware/auth";
+import {generateDto} from "../utils/generate-dto";
 
 const router = new Router();
 
@@ -8,10 +9,7 @@ router.get("/users", isAuthorized, async (req, res) => {
     try {
         const getAllUsers = await usersService.getAllUsers();
         if(req.user.role === "Admin") {
-            res.json({
-                status: "The full list of registered users",
-                data: getAllUsers
-            })
+            res.json(generateDto(getAllUsers))
         } else {
             res.json({
                 status: "No rights"
@@ -26,23 +24,15 @@ router.get("/users", isAuthorized, async (req, res) => {
 });
 
 router.post("/users", async (req, res) => {
-    try {
-        if(await usersService.getUserByEmail(req)) {
+    const existedUser = await usersService.getUserByEmail(req);
+    const createdUser = await usersService.createUser(req);
+        if(existedUser) {
             res.json({
                 status: "Sorry, but user with such EMAIL already exists"
             })
         } else {
-            res.json({
-                status: "User has been registered",
-                data: await usersService.createUser(req)
-            })
+            res.json(generateDto(createdUser))
         }
-    } catch (error) {
-        res.json({
-            status: "Something wrong",
-            data: error
-        })
-    }
 });
 
 export default router;
