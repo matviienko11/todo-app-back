@@ -7,6 +7,19 @@ import { sequelizeService } from "../models";
 
 export class UsersService {
 
+    async getOneUser(req) {
+        try {
+            return await sequelizeService.db.users.findOne({
+                where: {
+                    id: req.params.id
+                },
+                include: [{model: sequelizeService.db.todos, as: 'todos'}]
+            })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async getAllUsers() {
          try {
             return await sequelizeService.db.users.findAll({
@@ -15,8 +28,6 @@ export class UsersService {
         } catch (e) {
             console.log(e)
         }
-
-
     }
 
     async getUserByEmail(req) {
@@ -29,7 +40,6 @@ export class UsersService {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     async authUser(req) {
@@ -59,7 +69,6 @@ export class UsersService {
         } catch (e) {
             console.log(e)
         }
-
     }
 }
 

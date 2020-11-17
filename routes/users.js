@@ -8,11 +8,17 @@ const router = new Router();
 router.get("/users", isAuthorized, async (req, res) => {
     try {
         const getAllUsers = await usersService.getAllUsers();
-        if(req.user.role === "Admin") {
-            res.json(generateDto(getAllUsers))
+        if(req.user.role !== "User") {
+            res.json({
+                data: getAllUsers,
+                userInfo: req.user,
+                userRole: req.user.role
+            })
         } else {
             res.json({
-                status: "No rights"
+                status: "Sorry but you have to be Admin or Manager to see this",
+                userInfo: req.user,
+                userRole: req.user.role
             })
         }
     } catch (error) {
@@ -22,6 +28,14 @@ router.get("/users", isAuthorized, async (req, res) => {
         })
     }
 });
+
+router.get("/users/:id", isAuthorized, async (req, res) => {
+    const oneUser = await usersService.getOneUser(req);
+    res.json({
+        status: "User found",
+        data: oneUser
+    })
+})
 
 router.post("/users", async (req, res) => {
     const existedUser = await usersService.getUserByEmail(req);
@@ -34,5 +48,6 @@ router.post("/users", async (req, res) => {
             res.json(generateDto(createdUser))
         }
 });
+
 
 export default router;

@@ -4,6 +4,14 @@ import { sequelizeService } from "../models";
 
 class TodosService {
 
+    async getOneTodo(req) {
+        return await sequelizeService.db.todos.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+    }
+
     async getAllTodos() {
         try {
             return await sequelizeService.db.todos.findAll({

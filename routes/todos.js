@@ -10,14 +10,38 @@ router.get("/todos", isAuthorized, async (req, res) => {
     try {
         const allTodos = await todosService.getAllTodos();
         if(req.user.role !== "User") {
-            res.json(generateDto(allTodos))
+            res.json({
+                data: allTodos,
+                userInfo: req.user,
+                userRole: req.user.role
+            })
         } else {
             const certainTodos =  await todosService.getCertainTodos(req);
-            res.json(generateDto(certainTodos))
+            res.json({
+                data: certainTodos,
+                userInfo: req.user,
+                userRole: req.user.role
+            })
         }
     } catch (error) {
         res.json({
             status: "Some error happened",
+            data: error
+        })
+    }
+})
+
+
+router.get("/todos/:id", async (req, res) => {
+    try {
+        const oneTodo = await todosService.getOneTodo(req);
+        res.json({
+            status: "You todo has been found",
+            data: oneTodo
+        })
+    } catch (error) {
+        res.json({
+            status: "Couldn't find requested todo",
             data: error
         })
     }
@@ -55,17 +79,21 @@ router.delete("/todos/:id", async (req, res) => {
 
 router.patch("/todos/:id", isAuthorized, async (req, res) => {
     try {
-        if(req.user.role === "User") {
-            const editedTodo = await todosService.editTodo(req);
-            res.json({
-                status: "Todo has been changed",
-                data: editedTodo
-            })
-        } else {
-            res.json ({
-                status: "Sorry, only the user who created it can change it"
-            })
-        }
+        // if(req.user.role === "User") {
+        //     const editedTodo = await todosService.editTodo(req);
+        //     res.json({
+        //         status: "Todo has been changed",
+        //         data: editedTodo
+        //     })
+        // } else {
+        //     res.json ({
+        //         status: "Sorry, only the user who created it can change it"
+        //     })
+        const editedTodo = await todosService.editTodo(req);
+        res.json({
+            status: "Todo has been changed",
+            data: editedTodo
+        })
     } catch (error) {
         res.json({
             status: "No changes happened",
