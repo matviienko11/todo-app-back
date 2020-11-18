@@ -6,25 +6,18 @@ import {generateDto} from "../utils/generate-dto";
 const router = new Router();
 
 router.get("/users", isAuthorized, async (req, res) => {
-    try {
-        const getAllUsers = await usersService.getAllUsers();
-        if(req.user.role !== "User") {
-            res.json({
-                data: getAllUsers,
-                userInfo: req.user,
-                userRole: req.user.role
-            })
-        } else {
-            res.json({
-                status: "Sorry but you have to be Admin or Manager to see this",
-                userInfo: req.user,
-                userRole: req.user.role
-            })
-        }
-    } catch (error) {
+    const getAllUsers = await usersService.getAllUsers();
+    if(req.user.role !== "User") {
         res.json({
-            status: "No list",
-            data: error
+            data: getAllUsers,
+            userInfo: req.user,
+            userRole: req.user.role
+            })
+    } else {
+        res.json({
+            status: "Sorry but you have to be Admin or Manager to see this",
+            userInfo: req.user,
+            userRole: req.user.role
         })
     }
 });
