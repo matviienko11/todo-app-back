@@ -2,22 +2,21 @@ import {Router} from "express";
 import { usersService } from "../services/users.service";
 import { isAuthorized } from "../middleware/auth";
 import {generateDto} from "../utils/generate-dto";
+import { sequelizeService } from "../models";
 
 const router = new Router();
 
 router.get("/users", isAuthorized, async (req, res) => {
-    const getAllUsers = await usersService.getAllUsers();
+    const getAllUsers = await usersService.getAllUsers(req, res);
     if(req.user.role !== "User") {
         res.json({
             data: getAllUsers,
-            userInfo: req.user,
-            userRole: req.user.role
+            authUserInfo: req.user
             })
     } else {
         res.json({
             status: "Sorry but you have to be Admin or Manager to see this",
-            userInfo: req.user,
-            userRole: req.user.role
+            authUserInfo: req.user,
         })
     }
 });

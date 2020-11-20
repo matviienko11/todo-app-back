@@ -16,23 +16,62 @@ class TodosService {
         }
     }
 
-    async getAllTodos() {
+    async getAllTodos(req, res) {
         try {
-            return await sequelizeService.db.todos.findAll({
-                include: [{model: sequelizeService.db.users, as: 'users'}]
-            });
+            const getPagination = (page, size) => {
+                const limit = size ? +size: 3;
+                const offset = page? page * limit: 0;
+                return {limit, offset};
+            };
+
+            const getPagingData = (data, page, limit) => {
+                const { count: totalItems, rows: todos } = data;
+                const currentPage = page ? +page : 0;
+                const totalPages = Math.ceil(totalItems / limit);
+
+                return { totalItems, todos, totalPages, currentPage };
+            };
+            const {page, size} = req.query;
+            const {limit, offset} = getPagination(page, size);
+
+
+            const response = await sequelizeService.db.todos.findAndCountAll({
+                limit,
+                offset,
+                // include: [{model: sequelizeService.db.users, as: 'users'}]
+            })
+            return getPagingData(response, page, limit);
         } catch (e) {
             console.log(e);
         }
     }
 
-    async getCertainTodos(req) {
+    async getCertainTodos(req, res) {
         try {
-            return await sequelizeService.db.todos.findAll({
+            const getPagination = (page, size) => {
+                const limit = size ? +size: 3;
+                const offset = page? page * limit: 0;
+                return {limit, offset};
+            };
+
+            const getPagingData = (data, page, limit) => {
+                const { count: totalItems, rows: todos } = data;
+                const currentPage = page ? +page : 0;
+                const totalPages = Math.ceil(totalItems / limit);
+
+                return { totalItems, todos, totalPages, currentPage };
+            };
+            const {page, size} = req.query;
+            const {limit, offset} = getPagination(page, size);
+
+            const response = await sequelizeService.db.todos.findAndCountAll({
                 where: {
                     userId: req.user.id
-                }
+                },
+                limit,
+                offset
             })
+            return getPagingData(response, page, limit);
         } catch (e) {
             console.log(e)
         }

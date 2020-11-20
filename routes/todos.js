@@ -3,26 +3,28 @@ import { todosService } from "../services/todos.service";
 import {usersService} from "../services/users.service";
 import { isAuthorized } from "../middleware/auth";
 import { generateDto } from "../utils/generate-dto";
+import {sequelizeService} from "../models";
 
 const router = new Router;
 
-router.get("/todos", isAuthorized, async (req, res) => {
-    const allTodos = await todosService.getAllTodos();
-    if(req.user.role !== "User") {
-        res.json({
-            data: allTodos,
-            userInfo: req.user,
-            userRole: req.user.role
-        })
-    } else {
-        const certainTodos =  await todosService.getCertainTodos(req);
-        res.json({
-            data: certainTodos,
-            userInfo: req.user,
-            userRole: req.user.role
-        })
-    }
-})
+
+// router.get("/todos", isAuthorized, async (req, res) => {
+//     const allTodos = await todosService.getAllTodos();
+//     if(req.user.role !== "User") {
+//         res.json({
+//             data: allTodos,
+//             userInfo: req.user,
+//             userRole: req.user.role
+//         })
+//     } else {
+//         const certainTodos =  await todosService.getCertainTodos(req);
+//         res.json({
+//             data: certainTodos,
+//             userInfo: req.user,
+//             userRole: req.user.role
+//         })
+//     }
+// })
 
 
 router.get("/todos/:id", async (req, res) => {
@@ -32,6 +34,22 @@ router.get("/todos/:id", async (req, res) => {
         data: oneTodo
     })
 })
+
+router.get("/todos", isAuthorized, async (req, res) => {
+    if (req.user.role === "Admin") {
+        const todos = await todosService.getAllTodos(req, res);
+        res.json({
+            data: todos,
+            authUserInfo: req.user
+        })
+    } else {
+        const todos = await todosService.getCertainTodos(req, res);
+        res.json({
+            data: todos,
+            authUserInfo: req.user
+        })
+    }
+});
 
 router.post("/todos",async (req, res) => {
     const postTodo = await todosService.createTodo(req);
