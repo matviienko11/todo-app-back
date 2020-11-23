@@ -51,6 +51,11 @@ router.get("/todos", isAuthorized, async (req, res) => {
     }
 });
 
+router.get("/completed", async (req, res) => {
+    const doneTodos = await todosService.getCompletedTodos()
+    res.json (doneTodos);
+})
+
 router.post("/todos",async (req, res) => {
     const postTodo = await todosService.createTodo(req);
     res.json({

@@ -1,6 +1,7 @@
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
 import { sequelizeService } from "../models";
+import {Op} from "sequelize";
 
 class TodosService {
 
@@ -31,13 +32,15 @@ class TodosService {
 
                 return { totalItems, todos, totalPages, currentPage };
             };
-            const {page, size} = req.query;
+            const {page, size, name} = req.query;
+            let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
             const {limit, offset} = getPagination(page, size);
 
 
             const response = await sequelizeService.db.todos.findAndCountAll({
                 limit,
                 offset,
+                where: nameQuery
                 // include: [{model: sequelizeService.db.users, as: 'users'}]
             })
             return getPagingData(response, page, limit);
@@ -72,6 +75,18 @@ class TodosService {
                 offset
             })
             return getPagingData(response, page, limit);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getCompletedTodos() {
+        try {
+            return await sequelizeService.db.todos.findAll({
+                where: {
+                    isCompleted: true
+                }
+            })
         } catch (e) {
             console.log(e)
         }
