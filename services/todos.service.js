@@ -3,6 +3,22 @@ import jwt from "jsonwebtoken";
 import { sequelizeService } from "../models";
 import {Op} from "sequelize";
 
+
+const getPagination = (page, size) => {
+    const limit = size ? +size: 3;
+    const offset = page? page * limit: 0;
+    return {limit, offset};
+};
+
+const getPagingData = (data, page, limit) => {
+    const { count: totalItems, rows: todos } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return { totalItems, todos, totalPages, currentPage };
+};
+
+
 class TodosService {
 
     async getOneTodo(req) {
@@ -19,19 +35,6 @@ class TodosService {
 
     async getAllTodos(req, res) {
         try {
-            const getPagination = (page, size) => {
-                const limit = size ? +size: 3;
-                const offset = page? page * limit: 0;
-                return {limit, offset};
-            };
-
-            const getPagingData = (data, page, limit) => {
-                const { count: totalItems, rows: todos } = data;
-                const currentPage = page ? +page : 0;
-                const totalPages = Math.ceil(totalItems / limit);
-
-                return { totalItems, todos, totalPages, currentPage };
-            };
             const {page, size, name} = req.query;
             let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
             const {limit, offset} = getPagination(page, size);
@@ -51,25 +54,14 @@ class TodosService {
 
     async getCertainTodos(req, res) {
         try {
-            const getPagination = (page, size) => {
-                const limit = size ? +size: 3;
-                const offset = page? page * limit: 0;
-                return {limit, offset};
-            };
-
-            const getPagingData = (data, page, limit) => {
-                const { count: totalItems, rows: todos } = data;
-                const currentPage = page ? +page : 0;
-                const totalPages = Math.ceil(totalItems / limit);
-
-                return { totalItems, todos, totalPages, currentPage };
-            };
-            const {page, size} = req.query;
+            const {page, size, name} = req.query;
+            let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
             const {limit, offset} = getPagination(page, size);
 
             const response = await sequelizeService.db.todos.findAndCountAll({
                 where: {
-                    userId: req.user.id
+                    userId: req.user.id,
+                    nameQuery
                 },
                 limit,
                 offset
@@ -88,7 +80,19 @@ class TodosService {
                 }
             })
         } catch (e) {
-            console.log(e)
+            console.log(e);
+        }
+    }
+
+    async getInProgressTodos() {
+        try {
+            return await sequelizeService.db.todos.findAll({
+                where: {
+                    isInProgress: true
+                }
+            })
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -111,13 +115,14 @@ class TodosService {
         }
     }
 
-    async deleteTodo(req) {
+    async deletedTodo(req) {
         try {
-            return await sequelizeService.db.todos.destroy({
+            await sequelizeService.db.todos.destroy({
                 where: {
                     id: req.params.id
                 }
             })
+            return await sequelizeService.db.todos.findAll()
         } catch (e) {
             console.log(e)
         }
@@ -132,6 +137,27 @@ class TodosService {
             })).update({
                 ...req.body
             })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async sortTodosByName(req) {
+        try {
+            const {page, size, name} = req.query;
+            let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
+            const {limit, offset} = getPagination(page, size);
+
+
+            const response = await sequelizeService.db.todos.findAndCountAll({
+                limit,
+                offset,
+                where:nameQuery,
+                order: [
+                    ['name', 'ASC']
+                ]
+            })
+            return getPagingData(response, page, limit);
         } catch (e) {
             console.log(e)
         }

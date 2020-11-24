@@ -56,6 +56,16 @@ router.get("/completed", async (req, res) => {
     res.json (doneTodos);
 })
 
+router.get("/progress", async (req, res) => {
+    const progTodos = await todosService.getInProgressTodos();
+    res.json (progTodos);
+})
+
+router.get("/sortbyname", async (req, res) => {
+    const sortedTodos = await todosService.sortTodosByName(req);
+    res.json(sortedTodos);
+})
+
 router.post("/todos",async (req, res) => {
     const postTodo = await todosService.createTodo(req);
     res.json({
@@ -65,7 +75,7 @@ router.post("/todos",async (req, res) => {
 })
 
 router.delete("/todos/:id", async (req, res) => {
-    const deletedTodo = await todosService.deleteTodo(req);
+    const deletedTodo = await todosService.deletedTodo(req);
     res.json({
         status: "Todo has been deleted",
         data: deletedTodo

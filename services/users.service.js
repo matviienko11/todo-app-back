@@ -87,6 +87,19 @@ export class UsersService {
             console.log(e)
         }
     }
+
+    async deletedUser(req) {
+        try {
+            await sequelizeService.db.users.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            return await sequelizeService.db.users.findAll()
+        } catch (e) {
+            console.log(e)
+        }
+    }
 }
 
 export const usersService  = new UsersService();

@@ -5,7 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/todos.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/todos.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/users.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/users.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +40,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="10.17.44" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../angular-todo-app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -105,6 +107,8 @@
       <workItem from="1605685809439" duration="2861000" />
       <workItem from="1605770907554" duration="15062000" />
       <workItem from="1605858784512" duration="17533000" />
+      <workItem from="1606116566404" duration="9906000" />
+      <workItem from="1606203140809" duration="5028000" />
     </task>
     <servers />
   </component>
@@ -116,34 +120,34 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="223" y="348" width="598" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1603966020067" />
-    <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl" timestamp="1605777677254">
+    <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606203306750">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1605777677254" />
-    <state width="1109" height="291" key="GridCell.Tab.0.bottom" timestamp="1605882842630">
+    <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1606203306750" />
+    <state width="948" height="291" key="GridCell.Tab.0.bottom" timestamp="1606142678166">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1109" height="291" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1605882842630" />
-    <state width="1109" height="291" key="GridCell.Tab.0.center" timestamp="1605882842630">
+    <state width="948" height="291" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1606142678166" />
+    <state width="948" height="291" key="GridCell.Tab.0.center" timestamp="1606142678166">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1109" height="291" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1605882842630" />
-    <state width="1109" height="291" key="GridCell.Tab.0.left" timestamp="1605882842630">
+    <state width="948" height="291" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1606142678166" />
+    <state width="948" height="291" key="GridCell.Tab.0.left" timestamp="1606142678165">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1109" height="291" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1605882842630" />
-    <state width="1109" height="291" key="GridCell.Tab.0.right" timestamp="1605882842630">
+    <state width="948" height="291" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1606142678165" />
+    <state width="948" height="291" key="GridCell.Tab.0.right" timestamp="1606142678166">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1109" height="291" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1605882842630" />
+    <state width="948" height="291" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1606142678166" />
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1605265258560">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1605265258560" />
-    <state x="330" y="250" key="run.anything.popup" timestamp="1605168656424">
+    <state x="330" y="250" key="run.anything.popup" timestamp="1606209309405">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="330" y="250" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1605168656424" />
+    <state x="330" y="250" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1606209309405" />
     <state x="291" y="258" width="672" height="678" key="search.everywhere.popup" timestamp="1603801003797">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

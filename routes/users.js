@@ -41,5 +41,13 @@ router.post("/users", async (req, res) => {
         }
 });
 
+router.delete("/users/:id", async (req, res) => {
+    const deletedUser = await usersService.deletedUser(req);
+    res.json({
+        status: "User deleted",
+        data: deletedUser
+    })
+})
+
 
 export default router;
