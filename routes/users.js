@@ -29,7 +29,7 @@ router.get("/users/:id", isAuthorized, async (req, res) => {
     })
 })
 
-router.post("/users", async (req, res) => {
+router.post("/users/registration", async (req, res) => {
     const existedUser = await usersService.getUserByEmail(req);
     const createdUser = await usersService.createUser(req);
         if(existedUser) {

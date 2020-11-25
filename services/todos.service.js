@@ -1,7 +1,7 @@
 import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
 import { sequelizeService } from "../models";
-import {Op} from "sequelize";
+import { Op } from "sequelize";
 
 
 const getPagination = (page, size) => {
@@ -11,11 +11,10 @@ const getPagination = (page, size) => {
 };
 
 const getPagingData = (data, page, limit) => {
-    const { count: totalItems, rows: todos } = data;
+    const { count: count, rows: result } = data;
     const currentPage = page ? +page : 0;
-    const totalPages = Math.ceil(totalItems / limit);
-
-    return { totalItems, todos, totalPages, currentPage };
+    const totalPages = Math.ceil(count / limit);
+    return { count, result, totalPages, currentPage };
 };
 
 
@@ -35,16 +34,22 @@ class TodosService {
 
     async getAllTodos(req, res) {
         try {
-            const {page, size, name} = req.query;
+            let { page, size, name, dir, field } = req.query;
             let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
             const {limit, offset} = getPagination(page, size);
-
-
+            if (!field) {
+                field = 'createdAt'
+            }
+            if (!dir) {
+                dir = 'DESC';
+            }
             const response = await sequelizeService.db.todos.findAndCountAll({
                 limit,
                 offset,
-                where: nameQuery
-                // include: [{model: sequelizeService.db.users, as: 'users'}]
+                where: nameQuery,
+                order: [
+                    [field, dir]
+                ]
             })
             return getPagingData(response, page, limit);
         } catch (e) {
@@ -54,17 +59,25 @@ class TodosService {
 
     async getCertainTodos(req, res) {
         try {
-            const {page, size, name} = req.query;
+            let {page, size, name, field, dir} = req.query;
             let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
             const {limit, offset} = getPagination(page, size);
-
+            if (!field) {
+                field = 'createdAt'
+            }
+            if (!dir) {
+                dir = 'DESC';
+            }
             const response = await sequelizeService.db.todos.findAndCountAll({
+                limit,
+                offset,
                 where: {
                     userId: req.user.id,
                     nameQuery
                 },
-                limit,
-                offset
+                order: [
+                    [field, dir]
+                ]
             })
             return getPagingData(response, page, limit);
         } catch (e) {
@@ -137,27 +150,6 @@ class TodosService {
             })).update({
                 ...req.body
             })
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    async sortTodosByName(req) {
-        try {
-            const {page, size, name} = req.query;
-            let nameQuery = name ? {name: {[Op.like]: `%${name}%`}} : null;
-            const {limit, offset} = getPagination(page, size);
-
-
-            const response = await sequelizeService.db.todos.findAndCountAll({
-                limit,
-                offset,
-                where:nameQuery,
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
-            return getPagingData(response, page, limit);
         } catch (e) {
             console.log(e)
         }

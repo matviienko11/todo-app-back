@@ -1,39 +1,8 @@
 import { Router } from "express";
 import { todosService } from "../services/todos.service";
-import {usersService} from "../services/users.service";
 import { isAuthorized } from "../middleware/auth";
-import { generateDto } from "../utils/generate-dto";
-import {sequelizeService} from "../models";
 
 const router = new Router;
-
-
-// router.get("/todos", isAuthorized, async (req, res) => {
-//     const allTodos = await todosService.getAllTodos();
-//     if(req.user.role !== "User") {
-//         res.json({
-//             data: allTodos,
-//             userInfo: req.user,
-//             userRole: req.user.role
-//         })
-//     } else {
-//         const certainTodos =  await todosService.getCertainTodos(req);
-//         res.json({
-//             data: certainTodos,
-//             userInfo: req.user,
-//             userRole: req.user.role
-//         })
-//     }
-// })
-
-
-router.get("/todos/:id", async (req, res) => {
-    const oneTodo = await todosService.getOneTodo(req);
-    res.json({
-        status: "You todo has been found",
-        data: oneTodo
-    })
-})
 
 router.get("/todos", isAuthorized, async (req, res) => {
     if (req.user.role === "Admin") {
@@ -51,19 +20,22 @@ router.get("/todos", isAuthorized, async (req, res) => {
     }
 });
 
-router.get("/completed", async (req, res) => {
+router.get("/todos/completed", async (req, res) => {
     const doneTodos = await todosService.getCompletedTodos()
     res.json (doneTodos);
 })
 
-router.get("/progress", async (req, res) => {
+router.get("/todos/progress", async (req, res) => {
     const progTodos = await todosService.getInProgressTodos();
     res.json (progTodos);
 })
 
-router.get("/sortbyname", async (req, res) => {
-    const sortedTodos = await todosService.sortTodosByName(req);
-    res.json(sortedTodos);
+router.get("/todos/:id", async (req, res) => {
+    const oneTodo = await todosService.getOneTodo(req);
+    res.json({
+        status: "You todo has been found",
+        data: oneTodo
+    })
 })
 
 router.post("/todos",async (req, res) => {

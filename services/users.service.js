@@ -3,7 +3,17 @@ import { privateKey } from "../middleware/auth";
 import jwt from "jsonwebtoken";
 import { sequelizeService } from "../models";
 
-
+const getPagination = (page, size) => {
+    const limit = size ? +size: 3;
+    const offset = page? page * limit: 0;
+    return {limit, offset};
+};
+const getPagingData = (data, page, limit) => {
+    const { count: totalItems, rows: users } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+    return { totalItems, users, totalPages, currentPage };
+};
 
 export class UsersService {
 
@@ -22,24 +32,13 @@ export class UsersService {
 
     async getAllUsers(req, res) {
          try {
-             const getPagination = (page, size) => {
-                 const limit = size ? +size: 3;
-                 const offset = page? page * limit: 0;
-                 return {limit, offset};
-             };
-             const getPagingData = (data, page, limit) => {
-                 const { count: totalItems, rows: users } = data;
-                 const currentPage = page ? +page : 0;
-                 const totalPages = Math.ceil(totalItems / limit);
-                 return { totalItems, users, totalPages, currentPage };
-             };
              const {page, size} = req.query;
              const {limit, offset} = getPagination(page, size);
 
              const result = await sequelizeService.db.users.findAndCountAll({
                 limit,
                 offset,
-                include: [{model: sequelizeService.db.todos, as: 'todos'}]
+                // include: [{model: sequelizeService.db.todos, as: 'todos'}]
             });
              return getPagingData(result, page, limit)
         } catch (e) {
