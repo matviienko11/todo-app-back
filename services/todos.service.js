@@ -73,7 +73,6 @@ class TodosService {
                 offset,
                 where: {
                     userId: req.user.id,
-                    nameQuery
                 },
                 order: [
                     [field, dir]
@@ -82,30 +81,6 @@ class TodosService {
             return getPagingData(response, page, limit);
         } catch (e) {
             console.log(e)
-        }
-    }
-
-    async getCompletedTodos() {
-        try {
-            return await sequelizeService.db.todos.findAll({
-                where: {
-                    isCompleted: true
-                }
-            })
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    async getInProgressTodos() {
-        try {
-            return await sequelizeService.db.todos.findAll({
-                where: {
-                    isInProgress: true
-                }
-            })
-        } catch (e) {
-            console.log(e);
         }
     }
 

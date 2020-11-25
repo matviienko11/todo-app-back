@@ -4,10 +4,9 @@
     <list default="true" id="d50ef8f6-2db1-43bb-b0b9-12e4ad54390a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/@babel/register/.babel.7.12.3.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/todos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/todos.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/todos.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/users.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/users.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +108,7 @@
       <workItem from="1605858784512" duration="17533000" />
       <workItem from="1606116566404" duration="9906000" />
       <workItem from="1606203140809" duration="10570000" />
-      <workItem from="1606290277033" duration="6333000" />
+      <workItem from="1606290277033" duration="9652000" />
     </task>
     <servers />
   </component>
@@ -125,22 +124,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="322" y="305" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1606203306750" />
-    <state width="1005" height="301" key="GridCell.Tab.0.bottom" timestamp="1606296857787">
+    <state width="1005" height="301" key="GridCell.Tab.0.bottom" timestamp="1606300455536">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1005" height="301" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1606296857787" />
-    <state width="1005" height="301" key="GridCell.Tab.0.center" timestamp="1606296857786">
+    <state width="1005" height="301" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1606300455536" />
+    <state width="1005" height="301" key="GridCell.Tab.0.center" timestamp="1606300455534">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1005" height="301" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1606296857786" />
-    <state width="1005" height="301" key="GridCell.Tab.0.left" timestamp="1606296857786">
+    <state width="1005" height="301" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1606300455534" />
+    <state width="1005" height="301" key="GridCell.Tab.0.left" timestamp="1606300455533">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1005" height="301" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1606296857786" />
-    <state width="1005" height="301" key="GridCell.Tab.0.right" timestamp="1606296857787">
+    <state width="1005" height="301" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1606300455533" />
+    <state width="1005" height="301" key="GridCell.Tab.0.right" timestamp="1606300455535">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1005" height="301" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1606296857787" />
+    <state width="1005" height="301" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1606300455535" />
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1605265258560">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

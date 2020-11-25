@@ -20,16 +20,6 @@ router.get("/todos", isAuthorized, async (req, res) => {
     }
 });
 
-router.get("/todos/completed", async (req, res) => {
-    const doneTodos = await todosService.getCompletedTodos()
-    res.json (doneTodos);
-})
-
-router.get("/todos/progress", async (req, res) => {
-    const progTodos = await todosService.getInProgressTodos();
-    res.json (progTodos);
-})
-
 router.get("/todos/:id", async (req, res) => {
     const oneTodo = await todosService.getOneTodo(req);
     res.json({

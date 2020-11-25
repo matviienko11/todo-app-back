@@ -7,7 +7,7 @@ import {generateDto} from "../utils/generate-dto";
 
 const router = new Router();
 
-router.post("/login", async (req, res) => {
+router.post("/users/login", async (req, res) => {
         const authedUser = await usersService.authUser(req);
         if(authedUser) {
             res.json(generateDto(authedUser))
