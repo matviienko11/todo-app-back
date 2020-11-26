@@ -73,6 +73,7 @@ class TodosService {
                 offset,
                 where: {
                     userId: req.user.id,
+                    // nameQuery
                 },
                 order: [
                     [field, dir]
