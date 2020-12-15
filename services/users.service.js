@@ -94,7 +94,9 @@ export class UsersService {
                     id: req.params.id
                 }
             })
-            return await sequelizeService.db.users.findAll()
+            const data =  await sequelizeService.db.users.count();
+
+            return { count: data };
         } catch (e) {
             console.log(e)
         }
